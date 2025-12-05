@@ -1,11 +1,13 @@
 import User from "../models/User.js"
 import jwt from "jsonwebtoken"
-
+import bcrypt from "bcrypt"
 
 export async function createUser(req,res){
     try{
         const {userName, passwd} = req.body
-        const newUser = new User({userName, passwd})
+        const hashPasswd = await bcrypt.hash(passwd,10)
+        const newUser = new User({userName, passwd:hashPasswd})
+
         const savedUser = await newUser.save()
         res.status(201).json(savedUser)
     }catch(error){
@@ -21,7 +23,7 @@ export async function loginInUser(req,res){
         const { userName, passwd } = req.body;
     
         // Check user
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ userName });
         if (!user) return res.status(400).json({message: "User not found"});
     
         // Compare password with hash
