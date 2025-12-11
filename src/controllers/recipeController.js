@@ -29,8 +29,8 @@ export const getRecipeById = async (req,res)=>{
 
 export async function createRecipe (req,res) {
   try{
-      const {title, content} = req.body
-      const newRecipe = new Recipe({title,content})
+      const {title,desc} = req.body
+      const newRecipe = new Recipe({title,desc})
       const savedRecipe = await newRecipe.save()
       res.status(201).json(savedRecipe)
   }catch(error){
