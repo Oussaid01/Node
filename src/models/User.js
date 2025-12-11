@@ -5,10 +5,12 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     userName: {type: String, required: true, unique: true},
+    profilePicture : {type : string, required : true},
+    role : {type : string, required : true},
     passwd: {type: String, required: true}
 });
 
-const User = mongoose.model("User",userSchema)
+const User = mongoose.model("User",userSchema)  
 
 
 export default User
