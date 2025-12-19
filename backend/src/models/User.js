@@ -10,6 +10,9 @@ const userSchema = new mongoose.Schema({
     passwd: {type: String, required: true}
 });
 
+
+// add user type : client,chef,admin
+
 const User = mongoose.model("User",userSchema)  
 
 

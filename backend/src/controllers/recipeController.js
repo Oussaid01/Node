@@ -4,7 +4,7 @@ import Recipe from "../models/Recipe.js"
 export const getAllRecipies = async (_,res)=>{
   try{
       const recipies = await Recipe.find().sort({createdAt:-1})
-      res.status(200).json(recipes)
+      res.status(200).json(recipies)
   } catch(error){
       console.error("Error in getAllRecipies controller: ",error)
       res.status(500).json({message : "Internal server error "})
@@ -29,8 +29,8 @@ export const getRecipeById = async (req,res)=>{
 
 export async function createRecipe (req,res) {
   try{
-      const {title,desc} = req.body
-      const newRecipe = new Recipe({title,desc})
+      const {title,desc,steps,isPublished,creationDate} = req.body
+      const newRecipe = new Recipe({title,desc,steps,isPublished,creationDate})
       const savedRecipe = await newRecipe.save()
       res.status(201).json(savedRecipe)
   }catch(error){
@@ -41,8 +41,8 @@ export async function createRecipe (req,res) {
 
 export async function updateRecipe (req,res) {
   try{
-      const {title , content} = req.body
-      const updatedRecipe = await Recipe.findByIdAndUpdate(req.params.id,{title, content},{new:true,})
+      const {title,desc,steps,isPublished,creationDate} = req.body
+      const updatedRecipe = await Recipe.findByIdAndUpdate(req.params.id,{title,desc,steps,isPublished,creationDate},{new:true,})
 
       if (!updatedRecipe){
           return res.status(404).json({message : "Recipe not found"})
