@@ -12,7 +12,7 @@ const routeConfig: Routes = [
     {
         path: "register",
         component: RegisterComponent,
-        title: "Register Page"
+        title: "Details Page"
     }
 ];
 
